@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1658732330193-1" author="Hubert (generated)">
+        <createSequence incrementBy="1" sequenceName="hibernate_sequence" startValue="1"/>
+    </changeSet>
+    <changeSet id="1658732330193-2" author="Hubert (generated)">
+        <createTable tableName="ingredients">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_ingredients"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="amount" type="INT"/>
+            <column name="meal_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1658732330193-3" author="Hubert (generated)">
+        <createTable tableName="meal">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_meal"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="preperation_time" type="INT"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="type_meal" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1658732330193-4" author="Hubert (generated)">
+        <createTable tableName="meal_ingredients_list">
+            <column name="meal_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ingredients_list_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1658732330193-5" author="Hubert (generated)">
+        <addUniqueConstraint columnNames="ingredients_list_id" constraintName="uc_meal_ingredients_list_ingredientslist"
+                             tableName="meal_ingredients_list"/>
+    </changeSet>
+    <changeSet id="1658732330193-6" author="Hubert (generated)">
+        <addForeignKeyConstraint baseColumnNames="meal_id" baseTableName="ingredients"
+                                 constraintName="FK_INGREDIENTS_ON_MEAL" referencedColumnNames="id"
+                                 referencedTableName="meal"/>
+    </changeSet>
+    <changeSet id="1658732330193-7" author="Hubert (generated)">
+        <addForeignKeyConstraint baseColumnNames="ingredients_list_id" baseTableName="meal_ingredients_list"
+                                 constraintName="fk_meainglis_on_ingredients" referencedColumnNames="id"
+                                 referencedTableName="ingredients"/>
+    </changeSet>
+    <changeSet id="1658732330193-8" author="Hubert (generated)">
+        <addForeignKeyConstraint baseColumnNames="meal_id" baseTableName="meal_ingredients_list"
+                                 constraintName="fk_meainglis_on_meal" referencedColumnNames="id"
+                                 referencedTableName="meal"/>
+    </changeSet>
+
+</databaseChangeLog>
