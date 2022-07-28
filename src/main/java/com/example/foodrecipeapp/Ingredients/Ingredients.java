@@ -1,6 +1,7 @@
-package com.example.foodrecipeapp;
+package com.example.foodrecipeapp.Ingredients;
 
 
+import com.example.foodrecipeapp.Meal.Meal;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;

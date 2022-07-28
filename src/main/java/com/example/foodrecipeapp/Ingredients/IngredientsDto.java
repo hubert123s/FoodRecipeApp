@@ -1,4 +1,4 @@
-package com.example.foodrecipeapp;
+package com.example.foodrecipeapp.Ingredients;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,4 +13,5 @@ public class IngredientsDto implements Serializable {
     private  Long id;
     private  String name;
     private  Integer amount;
+    private Long mealId;
 }

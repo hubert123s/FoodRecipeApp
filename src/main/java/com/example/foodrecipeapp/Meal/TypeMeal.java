@@ -1,4 +1,4 @@
-package com.example.foodrecipeapp;
+package com.example.foodrecipeapp.Meal;
 
 public enum TypeMeal {
     breakfast, dinner, lunch

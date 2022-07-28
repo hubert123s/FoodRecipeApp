@@ -1,5 +1,6 @@
-package com.example.foodrecipeapp;
+package com.example.foodrecipeapp.Meal;
 
+import com.example.foodrecipeapp.Ingredients.Ingredients;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,10 +18,10 @@ public class Meal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "meal")
+    @OneToMany(mappedBy = "meal",cascade =CascadeType.REMOVE)
     private List<Ingredients> ingredientsList;
     private  Integer preperationTime;
     private String description;
     @Enumerated(EnumType.STRING)
-    private  TypeMeal typeMeal;
+    private TypeMeal typeMeal;
 }

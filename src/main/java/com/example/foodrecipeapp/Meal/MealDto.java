@@ -1,4 +1,4 @@
-package com.example.foodrecipeapp;
+package com.example.foodrecipeapp.Meal;
 
 import lombok.*;
 
@@ -11,5 +11,6 @@ public class MealDto implements Serializable {
     private  Long id;
     private  String name;
     private  Integer preperationTime;
-    private  TypeMeal typeMeal;
+    private  String description;
+    private TypeMeal typeMeal;
 }
