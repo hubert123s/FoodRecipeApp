@@ -64,7 +64,4 @@ class MealService {
         mealRepository.deleteById(id);
     }
 
-    public void sortingByPreparationTime() {
-        mealRepository.findAllMealByOrderByPreperationTimeAsc();
-    }
 }

@@ -61,11 +61,6 @@ public class MealController {
         mealService.deleteMeal(id);
         return ResponseEntity.noContent().build();
     }
-    @GetMapping("/sorting")
-    ResponseEntity<Meal> sortingByPreparationTime()
-    {
-        mealService.sortingByPreparationTime();
-        return  ResponseEntity.noContent().build();
-    }
+
 
 }
