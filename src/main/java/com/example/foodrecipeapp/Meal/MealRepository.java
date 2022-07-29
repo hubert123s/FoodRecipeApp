@@ -8,4 +8,8 @@ import java.util.List;
 public interface MealRepository extends JpaRepository<Meal, Long> {
 
 
+    List<Meal> findAllByName(String name);
+    List<Meal> findByIdGreaterThanAndIdLessThan(Long idmin,Long idmax);
+    List<Meal> findAllByPreperationTimeOrderByPreperationTimeAsc(Integer min);
+
 }

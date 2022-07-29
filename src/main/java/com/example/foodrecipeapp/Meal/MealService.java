@@ -64,4 +64,8 @@ class MealService {
         mealRepository.deleteById(id);
     }
 
+    List<Meal> findByName(String name) {
+       return mealRepository.findAllByName(name);
+    }
+
 }

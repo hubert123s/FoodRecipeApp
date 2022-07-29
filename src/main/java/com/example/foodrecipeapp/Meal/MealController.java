@@ -1,13 +1,11 @@
 package com.example.foodrecipeapp.Meal;
 
-import com.example.foodrecipeapp.Meal.MealService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/meal")
@@ -60,6 +58,12 @@ public class MealController {
     {
         mealService.deleteMeal(id);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/name")
+    @ResponseBody
+    List<Meal> findBy(@RequestParam(value = "name") String name)
+    {
+        return mealService.findByName(name);
     }
 
 
