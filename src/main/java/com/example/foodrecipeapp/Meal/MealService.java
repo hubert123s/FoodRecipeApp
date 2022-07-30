@@ -64,8 +64,11 @@ class MealService {
         mealRepository.deleteById(id);
     }
 
-    List<Meal> findByName(String name) {
-       return mealRepository.findAllByName(name);
+    List<MealDto> findByName(String name) {
+       return mealRepository.findAllByName(name)
+               .stream()
+               .map(MealDtoMapper::toDto)
+               .collect(Collectors.toList());
     }
 
 }

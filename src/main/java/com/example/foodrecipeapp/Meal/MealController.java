@@ -61,7 +61,7 @@ public class MealController {
     }
     @GetMapping("/name")
     @ResponseBody
-    List<Meal> findBy(@RequestParam(value = "name") String name)
+    List<MealDto> findBy(@RequestParam(value = "name") String name)
     {
         return mealService.findByName(name);
     }
