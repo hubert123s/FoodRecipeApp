@@ -16,9 +16,12 @@ public class MealController {
         this.mealService = mealService;
     }
     @GetMapping
-    List<MealDto> getAllMeals()
+    List<MealDto> getAllMeals(@RequestParam(defaultValue = "0",required = false) int pageNumber,
+                              @RequestParam(defaultValue = "2",required = false) int pageSize,
+                              @RequestParam(defaultValue = "preperationTime",required = false) String sortBy,
+                              @RequestParam(defaultValue = "ascending",required = false) String sortDirection)
     {
-        return mealService.getAllMeals();
+        return mealService.getAllMeals(pageNumber,pageSize,sortBy,sortDirection);
     }
     @GetMapping("/{id}")
     ResponseEntity<MealDto> getMealById(@PathVariable Long id)

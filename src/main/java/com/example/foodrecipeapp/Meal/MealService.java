@@ -1,6 +1,8 @@
 package com.example.foodrecipeapp.Meal;
 
 import com.example.foodrecipeapp.Ingredients.IngredientsDtoMapper;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -26,11 +28,29 @@ class MealService {
         return mealRepository.findById(id)
                 .map(MealDtoMapper::toDto);
     }
-    List <MealDto> getAllMeals()
+    List <MealDto> getAllMeals(int pageNumber,int pageSize,String sortBy, String sortDirection)
     {
-        return mealRepository.findAll()
-                .stream().map(MealDtoMapper::toDto)
-                .collect(Collectors.toList());
+        if (sortDirection.equalsIgnoreCase("ascending"))
+        {
+            return mealRepository.findAll
+                    (PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).ascending()))
+                    .stream()
+                    .map(MealDtoMapper::toDto)
+                    .collect(Collectors.toList());
+            //PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).ascending());
+        }
+        else
+        {
+            return mealRepository.findAll
+                    (PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending()))
+                    .stream()
+                    .map(MealDtoMapper::toDto)
+                    .collect(Collectors.toList());
+
+           // Sort sort =Sort.by(sortBy).descending();
+           // PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
+        }
+       // PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
     }
     List<MealIngredientsDto> getIngredientsByMealId(Long mealId)
     {
