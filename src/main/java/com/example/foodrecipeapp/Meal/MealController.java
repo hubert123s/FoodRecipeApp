@@ -64,10 +64,21 @@ public class MealController {
     }
     @GetMapping("/name")
     @ResponseBody
-    List<MealDto> findBy(@RequestParam(value = "name") String name)
+    List<MealDto> findByName(@RequestParam(value = "name") String name)
     {
         return mealService.findByName(name);
     }
+    @GetMapping("/ingredient")
+    List<Meal> findByWithOutThisIngredient(@RequestParam(value = "without") String ingredient)
+    {
+        return mealService.findWithOutThisIngredient(ingredient);
+    }
+    @GetMapping("/ingredients")
+    String findWithOutFewIngredients(@RequestParam(value = "without") String ... ingredients)
+    {
+        return mealService.findWithOutFewIngredients(ingredients);
+    }
+
 
 
 }

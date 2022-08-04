@@ -1,14 +1,14 @@
 package com.example.foodrecipeapp.Meal;
 
+import com.example.foodrecipeapp.Ingredients.Ingredients;
 import com.example.foodrecipeapp.Ingredients.IngredientsDtoMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 class MealService {
@@ -37,7 +37,6 @@ class MealService {
                     .stream()
                     .map(MealDtoMapper::toDto)
                     .collect(Collectors.toList());
-            //PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).ascending());
         }
         else
         {
@@ -46,11 +45,7 @@ class MealService {
                     .stream()
                     .map(MealDtoMapper::toDto)
                     .collect(Collectors.toList());
-
-           // Sort sort =Sort.by(sortBy).descending();
-           // PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
         }
-       // PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
     }
     List<MealIngredientsDto> getIngredientsByMealId(Long mealId)
     {
@@ -78,8 +73,6 @@ class MealService {
         Meal updateEntity =mealRepository.save(mealToUpdate);
         return Optional.of(MealDtoMapper.toDto(updateEntity));
     }
-
-
     public void deleteMeal(Long id) {
         mealRepository.deleteById(id);
     }
@@ -89,6 +82,42 @@ class MealService {
                .stream()
                .map(MealDtoMapper::toDto)
                .collect(Collectors.toList());
+    }
+
+
+    public String findWith(String ingredient) {
+        return mealRepository.findAll()
+                .stream()
+                .map(Meal::getIngredientsList)
+                .flatMap(Collection::stream)
+                .map(Ingredients::getName)
+                .collect(Collectors.toList()).toString();
+    }
+    List<Meal> findWithOutThisIngredient (String ingredient)
+    {
+        return mealRepository.findAll()
+                .stream()
+                .filter(meal -> meal.getIngredientsList()
+                        .stream().noneMatch(ingredients -> ingredients
+                                .getName()
+                                .equalsIgnoreCase(ingredient)))
+                .collect(Collectors.toList());
+    }
+    String findWithOutFewIngredients( String... ingredients)
+    {
+        return mealRepository.findAll()
+                .stream()
+                .filter(m-> m.getIngredientsList()
+                        .stream()
+                        .anyMatch( ingredients1 -> Arrays.stream(ingredients)
+                                .toList()
+                                .contains(ingredients1.getName())))
+                .map(Meal::getName)
+                //.map(Ingredients::getName)
+                //.map(Ingredients::getMeal)
+                .collect(Collectors.toList()).toString();
+
+
     }
 
 }
