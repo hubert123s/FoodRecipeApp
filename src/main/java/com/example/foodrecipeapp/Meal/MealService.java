@@ -2,13 +2,14 @@ package com.example.foodrecipeapp.Meal;
 
 import com.example.foodrecipeapp.Ingredients.Ingredients;
 import com.example.foodrecipeapp.Ingredients.IngredientsDtoMapper;
+import com.example.foodrecipeapp.Meal.Exceptions.DuplicatedMealException;
+import com.example.foodrecipeapp.Meal.Exceptions.NotFoundMealException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 class MealService {
@@ -25,6 +26,10 @@ class MealService {
 
     Optional<MealDto> getMealById(Long id)
     {
+        if(!mealRepository.existsById(id))
+        {
+            throw new NotFoundMealException();
+        }
         return mealRepository.findById(id)
                 .map(MealDtoMapper::toDto);
     }
@@ -51,13 +56,18 @@ class MealService {
     {
         return mealRepository.findById(mealId)
                 .map(Meal::getIngredientsList)
-                .orElse(Collections.emptyList())
+                .orElseThrow(NotFoundMealException::new)
                 .stream()
                 .map(MealIngredientsDtoMapper::map)
                 .toList();
     }
     MealDto saveMeal(MealDto mealDto)
     {
+        Optional<Meal> optionalMealDto= mealRepository.findAllByName(mealDto.getName());
+        if(optionalMealDto.isPresent())
+        {
+            throw new DuplicatedMealException();
+        }
         Meal meal = mealDtoMapper.toEntity(mealDto);
         Meal savedMeal = mealRepository.save(meal);
         return MealDtoMapper.toDto(savedMeal);
@@ -74,6 +84,10 @@ class MealService {
         return Optional.of(MealDtoMapper.toDto(updateEntity));
     }
     public void deleteMeal(Long id) {
+        if(!mealRepository.existsById(id))
+        {
+            throw new NotFoundMealException();
+        }
         mealRepository.deleteById(id);
     }
 
