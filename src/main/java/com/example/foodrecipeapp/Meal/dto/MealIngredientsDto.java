@@ -1,4 +1,4 @@
-package com.example.foodrecipeapp.Meal;
+package com.example.foodrecipeapp.Meal.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

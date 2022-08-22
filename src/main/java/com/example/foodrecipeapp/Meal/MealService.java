@@ -4,6 +4,8 @@ import com.example.foodrecipeapp.Ingredients.Ingredients;
 import com.example.foodrecipeapp.Ingredients.IngredientsDtoMapper;
 import com.example.foodrecipeapp.Meal.Exceptions.DuplicatedMealException;
 import com.example.foodrecipeapp.Meal.Exceptions.NotFoundMealException;
+import com.example.foodrecipeapp.Meal.dto.MealDto;
+import com.example.foodrecipeapp.Meal.dto.MealIngredientsDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;

@@ -1,5 +1,6 @@
 package com.example.foodrecipeapp.Meal;
 
+import com.example.foodrecipeapp.Meal.dto.MealDto;
 import org.springframework.stereotype.Service;
 
 @Service

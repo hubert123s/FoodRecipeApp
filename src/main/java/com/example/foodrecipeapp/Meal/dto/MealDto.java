@@ -1,5 +1,6 @@
-package com.example.foodrecipeapp.Meal;
+package com.example.foodrecipeapp.Meal.dto;
 
+import com.example.foodrecipeapp.Meal.TypeMeal;
 import lombok.*;
 
 import java.io.Serializable;

@@ -1,7 +1,8 @@
 package com.example.foodrecipeapp.Meal;
 
 import com.example.foodrecipeapp.Meal.Image.MealImageService;
-import org.hibernate.type.StringNVarcharType;
+import com.example.foodrecipeapp.Meal.dto.MealDto;
+import com.example.foodrecipeapp.Meal.dto.MealIngredientsDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
