@@ -27,6 +27,7 @@ public class FoodRecipeSecurityConfiguration extends WebSecurityConfigurerAdapte
         http
                 .authorizeHttpRequests()
                 .mvcMatchers(HttpMethod.GET,"/meal/**").permitAll()
+                .mvcMatchers("/swagger-ui/**","/v3/api-docs").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()
