@@ -2,8 +2,8 @@ package com.example.foodrecipeapp.Meal;
 
 import com.example.foodrecipeapp.Ingredients.Ingredients;
 import com.example.foodrecipeapp.Ingredients.IngredientsDtoMapper;
-import com.example.foodrecipeapp.Meal.Exceptions.DuplicatedMealException;
-import com.example.foodrecipeapp.Meal.Exceptions.NotFoundMealException;
+import com.example.foodrecipeapp.Exceptions.DuplicatedMealException;
+import com.example.foodrecipeapp.Exceptions.NotFoundMealException;
 import com.example.foodrecipeapp.Meal.dto.MealDto;
 import com.example.foodrecipeapp.Meal.dto.MealIngredientsDto;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +14,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-class MealService {
+
+public class MealService {
     private  final MealRepository mealRepository;
     private  final MealDtoMapper mealDtoMapper;
     private final IngredientsDtoMapper ingredientsDtoMapper;
@@ -43,7 +44,7 @@ class MealService {
                     (PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).ascending()))
                     .stream()
                     .map(MealDtoMapper::toDto)
-                    .collect(Collectors.toList());
+                    .toList();
         }
         else
         {
@@ -51,10 +52,10 @@ class MealService {
                     (PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending()))
                     .stream()
                     .map(MealDtoMapper::toDto)
-                    .collect(Collectors.toList());
+                    .toList();
         }
     }
-    List<MealIngredientsDto> getIngredientsByMealId(Long mealId)
+    public List<MealIngredientsDto> getIngredientsByMealId(Long mealId)
     {
         return mealRepository.findById(mealId)
                 .map(Meal::getIngredientsList)
@@ -97,7 +98,7 @@ class MealService {
        return mealRepository.findAllByName(name)
                .stream()
                .map(MealDtoMapper::toDto)
-               .collect(Collectors.toList());
+               .toList();
     }
 
 
@@ -107,7 +108,7 @@ class MealService {
                 .map(Meal::getIngredientsList)
                 .flatMap(Collection::stream)
                 .map(Ingredients::getName)
-                .collect(Collectors.toList()).toString();
+                .toList().toString();
     }
     List<Meal> findWithOutThisIngredient (String ingredient)
     {
@@ -117,7 +118,7 @@ class MealService {
                         .stream().noneMatch(ingredients -> ingredients
                                 .getName()
                                 .equalsIgnoreCase(ingredient)))
-                .collect(Collectors.toList());
+                .toList();
     }
     String findWithOutFewIngredients( String... ingredients)
     {
@@ -131,7 +132,7 @@ class MealService {
                 .map(Meal::getName)
                 //.map(Ingredients::getName)
                 //.map(Ingredients::getMeal)
-                .collect(Collectors.toList()).toString();
+                .toList().toString();
 
 
     }

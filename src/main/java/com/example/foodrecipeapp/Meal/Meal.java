@@ -1,7 +1,6 @@
 package com.example.foodrecipeapp.Meal;
 
 import com.example.foodrecipeapp.Ingredients.Ingredients;
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,4 +29,13 @@ public class Meal {
     private String description;
     @Enumerated(EnumType.STRING)
     private TypeMeal typeMeal;
+
+    public String emailFormat()
+    {
+        return  "name=" + name + "\n" +
+                "preperation time=" + preperationTime + "\n" +
+                "description=" + description + "\n" +
+                "type meal=" + typeMeal + "\n"+
+                "ingredients :";
+    }
 }

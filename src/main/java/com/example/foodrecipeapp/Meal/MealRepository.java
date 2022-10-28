@@ -11,6 +11,8 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
 
 
     Optional<Meal> findAllByName(String name);
+    @Query("SELECT coalesce(max(m.id), 0) FROM Meal m")
+    Long getMaxId();
     List<Meal> findByIdGreaterThanAndIdLessThan(Long idmin,Long idmax);
     List<Meal> findAllByPreperationTimeOrderByPreperationTimeAsc(Integer min);
 

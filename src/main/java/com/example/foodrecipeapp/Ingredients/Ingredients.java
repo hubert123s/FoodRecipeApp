@@ -27,4 +27,8 @@ public class Ingredients {
     private Meal meal;
 
 
+    public String emailFormat() {
+        return " name=" + name + '\'' +
+                "amount=" + amount;
+    }
 }

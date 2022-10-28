@@ -20,3 +20,7 @@ VALUES
     (5,'maka pszenna tortowa',400,3),
     (6,'roztopione maslo',30,3),
     (7,'sol',5,3);
+INSERT INTO
+    subscriber(id,name,email,type_newsletter)
+VALUES
+    (1,'hubert','hubert.antoniszyn98@gmail.com','daily');

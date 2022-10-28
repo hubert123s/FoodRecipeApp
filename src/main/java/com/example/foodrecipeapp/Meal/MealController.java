@@ -1,6 +1,6 @@
 package com.example.foodrecipeapp.Meal;
 
-import com.example.foodrecipeapp.Meal.Exceptions.NotFoundMealException;
+import com.example.foodrecipeapp.Exceptions.NotFoundMealException;
 import com.example.foodrecipeapp.Meal.Image.MealImageService;
 import com.example.foodrecipeapp.Meal.dto.MealDto;
 import com.example.foodrecipeapp.Meal.dto.MealIngredientsDto;
@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.swing.text.html.Option;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -72,32 +71,25 @@ public class MealController {
     }
     @GetMapping("/name")
     @ResponseBody
-    String findByName(@RequestParam Optional<String> name,
-                             @RequestParam Optional<String> image)
+    List<MealDto> findByName(@RequestParam(value = "name") Optional<String> name)
     {
         if(name.isPresent()){
-            return mealService.findByName(name.get()).toString();
-        }
-        else if(image.isPresent())
-        {
-            return mealImageService.getImageURL(image.get());
+            return mealService.findByName(name.get());
         }
         else {
             throw new NotFoundMealException();
         }
     }
-//    @GetMapping("/name")
-//    @ResponseBody
-//    List<MealDto> findByName(@RequestParam(value = "name") String name)
-//    {
-//        return mealService.findByName(name);
-//    }
-//    @GetMapping("/name/image")
-//    @ResponseBody
-//    String findImageByName(@RequestParam(value = "name") String name)
-//    {
-//        return mealImageService.getImageURL(name);
-//    }
+    @GetMapping("/name/image")
+    @ResponseBody
+    String findImageByName(@RequestParam(value = "name") Optional<String> name)
+    {
+         if(name.isPresent()) {
+             return mealImageService.getImageURL(name.get());
+         }else {
+             throw new NotFoundMealException();
+         }
+    }
     @GetMapping("/ingredient")
     List<Meal> findByWithOutThisIngredient(@RequestParam(value = "without") String ingredient)
     {

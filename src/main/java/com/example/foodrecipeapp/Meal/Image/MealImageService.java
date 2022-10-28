@@ -1,12 +1,8 @@
 package com.example.foodrecipeapp.Meal.Image;
-
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
-
 public class MealImageService {
 
     private final MealImageClient mealImageClient;

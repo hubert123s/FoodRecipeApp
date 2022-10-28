@@ -10,4 +10,12 @@ import lombok.NoArgsConstructor;
 public class MealIngredientsDto {
     private  Long id;
     private  String name;
+    private Integer amount;
+
+    public String emailFormat()
+    {
+        return " name='" + name + '\'' +
+                ", amount=" + amount ;
+    }
+
 }

@@ -60,5 +60,15 @@
                                  constraintName="fk_meainglis_on_meal" referencedColumnNames="id"
                                  referencedTableName="meal"/>
     </changeSet>
+    <changeSet id="1666953173860-1" author="Hubert">
+        <createTable tableName="subscriber">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_subscriber"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="type_newsletter" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
 
 </databaseChangeLog>

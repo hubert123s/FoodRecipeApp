@@ -12,6 +12,7 @@ class MealIngredientsDtoMapper {
         MealIngredientsDto dto = new MealIngredientsDto();
         dto.setId(ingredients.getId());
         dto.setName(ingredients.getName());
+        dto.setAmount(ingredients.getAmount());
         return dto;
     }
 }

@@ -14,6 +14,53 @@ spring:
       mode: always
   liquibase:
     change-log: classpath:/db/master.xml
+#  mail:
+#    host: smtp.gmail.com
+#    port: 587
+#    username: testowehubert@gmail.com
+#    password: testowe123
+#    properties:
+#      smtp:
+#        auth: true
+#        connectiontimeout: 5000
+#        timeout: 5000
+#        writetimeout: 5000
+#      mail:
+#        starttls:
+#          enable: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: testowehubert@gmail.com
+    password: dkblnzjipjodhkdt
+
+    properties:
+      mail:
+        smtp:
+          ssl:
+            trust: smtp.gmail.com
+          auth: true
+          starttls:
+            enable: true
+            required: true
+        transport:
+          protocole: smtp
+#  mail:
+#    host: smtp.gmail.com
+#    port: 587
+#    username: robert.miedzic@gmail.com
+#    password: aedltumigwdnftou
+#    properties:
+#      mail:
+#        smtp:
+#          ssl:
+#            trust: smtp.gmail.com
+#          auth: true
+#          starttls:
+#            enable: true
+#            required: true
+#        transport:
+#          protocole: smtp
 logging:
   level:
     org:
