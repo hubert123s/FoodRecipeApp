@@ -27,7 +27,6 @@ public class Ingredients {
 
 
     public String emailFormat() {
-        return " name=" + name + '\'' +
-                "amount=" + amount;
+        return " name=" + name +"amount=" + amount+"\n";
     }
 }

@@ -20,9 +20,10 @@ public class SubscriberService {
         String text = "You have been successfully added to the subscriber base";
         subscriberRepository.save(subscriber);
         newsletterService.sendMail(text,subject, List.of(subscriber.getEmail()));
+
         if(subscriber.getTypeNewsletter().equals(TypeNewsletter.ebook))
         {
-            //send ebook
+            newsletterService.sendEbook(List.of(subscriber.getEmail()));
         }
     }
 }
