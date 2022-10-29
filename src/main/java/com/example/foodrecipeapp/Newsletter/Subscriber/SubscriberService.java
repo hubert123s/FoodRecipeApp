@@ -1,10 +1,10 @@
 package com.example.foodrecipeapp.Newsletter.Subscriber;
 
 import com.example.foodrecipeapp.Newsletter.NewsletterService;
+import com.example.foodrecipeapp.Newsletter.Subscriber.model.Subscriber;
 import com.example.foodrecipeapp.Newsletter.TypeNewsletter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 

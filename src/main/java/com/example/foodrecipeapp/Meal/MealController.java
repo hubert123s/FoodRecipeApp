@@ -4,6 +4,7 @@ import com.example.foodrecipeapp.Exceptions.NotFoundMealException;
 import com.example.foodrecipeapp.Meal.Image.MealImageService;
 import com.example.foodrecipeapp.Meal.dto.MealDto;
 import com.example.foodrecipeapp.Meal.dto.MealIngredientsDto;
+import com.example.foodrecipeapp.Meal.model.Meal;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -81,9 +82,10 @@ public class MealController {
         }
     }
     @GetMapping("/name/image")
-    @ResponseBody
-    String findImageByName(@RequestParam(value = "name") Optional<String> name)
+    //@ResponseBody
+    public String findImageByName(@RequestParam(value = "name") Optional<String> name)
     {
+
          if(name.isPresent()) {
              return mealImageService.getImageURL(name.get());
          }else {

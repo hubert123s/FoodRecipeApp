@@ -1,17 +1,17 @@
 package com.example.foodrecipeapp.Meal;
 
-import com.example.foodrecipeapp.Ingredients.Ingredients;
+import com.example.foodrecipeapp.Ingredients.model.Ingredients;
 import com.example.foodrecipeapp.Ingredients.IngredientsDtoMapper;
 import com.example.foodrecipeapp.Exceptions.DuplicatedMealException;
 import com.example.foodrecipeapp.Exceptions.NotFoundMealException;
 import com.example.foodrecipeapp.Meal.dto.MealDto;
 import com.example.foodrecipeapp.Meal.dto.MealIngredientsDto;
+import com.example.foodrecipeapp.Meal.model.Meal;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 

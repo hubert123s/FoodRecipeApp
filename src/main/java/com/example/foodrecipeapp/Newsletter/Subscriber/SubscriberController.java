@@ -1,5 +1,6 @@
 package com.example.foodrecipeapp.Newsletter.Subscriber;
 
+import com.example.foodrecipeapp.Newsletter.Subscriber.model.Subscriber;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

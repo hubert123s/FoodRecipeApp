@@ -1,5 +1,7 @@
 package com.example.foodrecipeapp.Ingredients;
 
+import com.example.foodrecipeapp.Ingredients.dto.IngredientsDto;
+import com.example.foodrecipeapp.Ingredients.model.Ingredients;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

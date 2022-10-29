@@ -1,6 +1,7 @@
-package com.example.foodrecipeapp.Meal;
+package com.example.foodrecipeapp.Meal.model;
 
-import com.example.foodrecipeapp.Ingredients.Ingredients;
+import com.example.foodrecipeapp.Ingredients.model.Ingredients;
+import com.example.foodrecipeapp.Meal.TypeMeal;
 import lombok.*;
 
 import javax.persistence.*;

@@ -1,11 +1,9 @@
 package com.example.foodrecipeapp.Newsletter;
 
-import com.example.foodrecipeapp.Ingredients.Ingredients;
-import com.example.foodrecipeapp.Meal.Meal;
+import com.example.foodrecipeapp.Ingredients.model.Ingredients;
+import com.example.foodrecipeapp.Meal.model.Meal;
 import com.example.foodrecipeapp.Meal.MealRepository;
 import com.example.foodrecipeapp.Meal.MealService;
-import com.example.foodrecipeapp.Meal.dto.MealIngredientsDto;
-import com.example.foodrecipeapp.Newsletter.Subscriber.Subscriber;
 import com.example.foodrecipeapp.Newsletter.Subscriber.SubscriberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,5 +75,6 @@ public class NewsletterService {
     {
 
     }
+    //create ebook
 
 }

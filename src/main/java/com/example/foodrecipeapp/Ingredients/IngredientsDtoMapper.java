@@ -1,6 +1,8 @@
 package com.example.foodrecipeapp.Ingredients;
 
 
+import com.example.foodrecipeapp.Ingredients.dto.IngredientsDto;
+import com.example.foodrecipeapp.Ingredients.model.Ingredients;
 import com.example.foodrecipeapp.Meal.MealRepository;
 import org.springframework.stereotype.Service;
 

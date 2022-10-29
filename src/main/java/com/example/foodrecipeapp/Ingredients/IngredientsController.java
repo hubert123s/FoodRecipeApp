@@ -1,5 +1,6 @@
 package com.example.foodrecipeapp.Ingredients;
 
+import com.example.foodrecipeapp.Ingredients.dto.IngredientsDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
