@@ -1,7 +1,8 @@
-package com.example.foodrecipeapp.Meal;
+package com.example.foodrecipeapp.Meal.controller;
 
 import com.example.foodrecipeapp.Exceptions.NotFoundMealException;
 import com.example.foodrecipeapp.Meal.Image.MealImageService;
+import com.example.foodrecipeapp.Meal.service.MealService;
 import com.example.foodrecipeapp.Meal.dto.MealDto;
 import com.example.foodrecipeapp.Meal.dto.MealIngredientsDto;
 import com.example.foodrecipeapp.Meal.model.Meal;
@@ -15,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/meal")
-public class MealController {
+class MealController {
     private  final MealService mealService;
     private final MealImageService mealImageService;
 
@@ -58,11 +59,9 @@ public class MealController {
         return ResponseEntity.created(savedMealUri).body(savedMeal);
     }
     @PutMapping("/{id}")
-    ResponseEntity<?> replaceMeal(@PathVariable Long id, @RequestBody MealDto mealDto)
+    ResponseEntity<MealDto> replaceMeal(@PathVariable Long id, @RequestBody MealDto mealDto)
     {
-        return mealService.replaceMeal(id,mealDto)
-                .map(m->ResponseEntity.noContent().build())
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(mealService.replaceMeal(id,mealDto).get());
     }
     @DeleteMapping ("/{id}")
     ResponseEntity<?> deleteMeal (@PathVariable Long id)
