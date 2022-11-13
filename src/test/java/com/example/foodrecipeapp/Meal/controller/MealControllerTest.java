@@ -1,13 +1,16 @@
 package com.example.foodrecipeapp.Meal.controller;
 
-import com.example.foodrecipeapp.Meal.Image.MealImageService;
+import com.example.foodrecipeapp.Exceptions.NotFoundMealException;
+import com.example.foodrecipeapp.Image.MealImageService;
 import com.example.foodrecipeapp.Meal.dto.MealDto;
+import com.example.foodrecipeapp.Meal.mapper.MealDtoMapper;
 import com.example.foodrecipeapp.Meal.model.Meal;
 import com.example.foodrecipeapp.Meal.model.TypeMeal;
 import com.example.foodrecipeapp.Meal.repository.MealRepository;
 import com.example.foodrecipeapp.Meal.service.MealService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.bytebuddy.implementation.bytecode.Throw;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,7 +20,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import javax.transaction.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -32,9 +34,9 @@ class MealControllerTest {
     @Autowired
     MealService mealService;
     @Autowired
-    MealImageService mealImageService;
-    @Autowired
     MockMvc mockMvc;
+    @Autowired
+    MealDtoMapper mealDtoMapper;
     @Autowired
     ObjectMapper objectMapper;
     @Test
@@ -87,6 +89,7 @@ class MealControllerTest {
         meal.setDescription("coming soon");
         meal.setTypeMeal(TypeMeal.dinner);
 
+        mealRepository.save(meal);
         mockMvc.perform(delete("/meal/"+meal.getId()))
                 .andDo(print())
                 .andExpect(status().is(204))
@@ -125,6 +128,18 @@ class MealControllerTest {
                 .andExpect(jsonPath("$.preperationTime").value(meal2.getPreperationTime()))
                 .andExpect(jsonPath("$.description").value(meal2.getDescription()))
                 .andExpect(jsonPath("$.typeMeal").value(meal2.getTypeMeal().name()));
+
+    }
+    @Test
+    void shouldFindByName() throws Exception {
+        mockMvc.perform(get("/meal/name?name=toast"))
+                .andDo(print())
+                .andExpect(status().is(200));
+        mockMvc.perform(get("/meal/name?name=skfcns"))
+                .andDo(print())
+                .andExpect(status().is(404));
+
+
 
     }
 }

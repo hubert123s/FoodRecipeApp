@@ -1,14 +1,18 @@
-package com.example.foodrecipeapp.Meal;
+package com.example.foodrecipeapp.Meal.service;
 
 import com.example.foodrecipeapp.Ingredients.model.Ingredients;
-import com.example.foodrecipeapp.Ingredients.IngredientsDtoMapper;
+import com.example.foodrecipeapp.Ingredients.mapper.IngredientsDtoMapper;
 import com.example.foodrecipeapp.Exceptions.DuplicatedMealException;
 import com.example.foodrecipeapp.Exceptions.NotFoundMealException;
+import com.example.foodrecipeapp.Meal.mapper.MealDtoMapper;
+import com.example.foodrecipeapp.Meal.mapper.MealIngredientsDtoMapper;
+import com.example.foodrecipeapp.Meal.repository.MealRepository;
 import com.example.foodrecipeapp.Meal.dto.MealDto;
 import com.example.foodrecipeapp.Meal.dto.MealIngredientsDto;
 import com.example.foodrecipeapp.Meal.model.Meal;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.expression.spel.ast.OpInc;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -27,7 +31,7 @@ public class MealService {
         this.ingredientsDtoMapper = ingredientsDtoMapper;
     }
 
-    Optional<MealDto> getMealById(Long id)
+    public Optional<MealDto> getMealById(Long id)
     {
         if(!mealRepository.existsById(id))
         {
@@ -36,7 +40,7 @@ public class MealService {
         return mealRepository.findById(id)
                 .map(MealDtoMapper::toDto);
     }
-    List <MealDto> getAllMeals(int pageNumber,int pageSize,String sortBy, String sortDirection)
+    public List <MealDto> getAllMeals(int pageNumber,int pageSize,String sortBy, String sortDirection)
     {
         if (sortDirection.equalsIgnoreCase("ascending"))
         {
@@ -64,7 +68,7 @@ public class MealService {
                 .map(MealIngredientsDtoMapper::map)
                 .toList();
     }
-    MealDto saveMeal(MealDto mealDto)
+    public MealDto saveMeal(MealDto mealDto)
     {
         Optional<Meal> optionalMealDto= mealRepository.findAllByName(mealDto.getName());
         if(optionalMealDto.isPresent())
@@ -75,7 +79,7 @@ public class MealService {
         Meal savedMeal = mealRepository.save(meal);
         return MealDtoMapper.toDto(savedMeal);
     }
-    Optional <MealDto> replaceMeal(Long mealId,MealDto mealDto)
+    public Optional <MealDto> replaceMeal(Long mealId,MealDto mealDto)
     {
         if(!mealRepository.existsById(mealId))
         {
@@ -94,11 +98,17 @@ public class MealService {
         mealRepository.deleteById(id);
     }
 
-    List<MealDto> findByName(String name) {
-       return mealRepository.findAllByName(name)
-               .stream()
-               .map(MealDtoMapper::toDto)
-               .toList();
+   public List<MealDto> findByName(String name) {
+        Optional<Meal> mealByName = mealRepository.findAllByName(name);
+        if(mealByName.isEmpty())
+        {
+            throw new NotFoundMealException();
+        }
+        else {
+            return mealByName.stream()
+                    .map(MealDtoMapper::toDto)
+                    .toList();
+        }
     }
 
 
@@ -110,7 +120,7 @@ public class MealService {
                 .map(Ingredients::getName)
                 .toList().toString();
     }
-    List<Meal> findWithOutThisIngredient (String ingredient)
+    public List<Meal> findWithOutThisIngredient (String ingredient)
     {
         return mealRepository.findAll()
                 .stream()
@@ -120,7 +130,7 @@ public class MealService {
                                 .equalsIgnoreCase(ingredient)))
                 .toList();
     }
-    String findWithOutFewIngredients( String... ingredients)
+    public String findWithOutFewIngredients( String... ingredients)
     {
         return mealRepository.findAll()
                 .stream()
