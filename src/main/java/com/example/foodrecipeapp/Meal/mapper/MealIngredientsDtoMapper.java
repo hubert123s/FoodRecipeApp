@@ -1,13 +1,13 @@
-package com.example.foodrecipeapp.Meal;
+package com.example.foodrecipeapp.Meal.mapper;
 
 import com.example.foodrecipeapp.Ingredients.model.Ingredients;
 import com.example.foodrecipeapp.Meal.dto.MealIngredientsDto;
 import org.springframework.stereotype.Service;
 
 @Service
-class MealIngredientsDtoMapper {
+public class MealIngredientsDtoMapper {
 
-    static MealIngredientsDto map(Ingredients ingredients)
+    public static MealIngredientsDto map(Ingredients ingredients)
     {
         MealIngredientsDto dto = new MealIngredientsDto();
         dto.setId(ingredients.getId());

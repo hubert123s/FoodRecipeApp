@@ -1,4 +1,4 @@
-package com.example.foodrecipeapp.Meal.Image;
+package com.example.foodrecipeapp.Image;
 import org.springframework.stereotype.Service;
 
 

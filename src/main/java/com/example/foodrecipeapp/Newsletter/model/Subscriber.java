@@ -1,14 +1,17 @@
-package com.example.foodrecipeapp.Newsletter.Subscriber.model;
+package com.example.foodrecipeapp.Newsletter.model;
 
 import com.example.foodrecipeapp.Newsletter.TypeNewsletter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,6 +19,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @Entity
 @Table(name = "subscriber")
+@EntityListeners(AuditingEntityListener.class)
 public class Subscriber {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,5 +30,8 @@ public class Subscriber {
     private String email;
     @Enumerated(EnumType.STRING)
     private TypeNewsletter typeNewsletter=TypeNewsletter.daily;
+    @Column(name = "created_date", nullable = false, updatable = false)
+    @CreatedDate
+    private LocalDateTime createdDate;
 
 }

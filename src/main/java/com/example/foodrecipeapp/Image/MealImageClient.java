@@ -1,5 +1,6 @@
-package com.example.foodrecipeapp.Meal.Image;
+package com.example.foodrecipeapp.Image;
 
+import com.example.foodrecipeapp.Image.dto.ApiDto;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 

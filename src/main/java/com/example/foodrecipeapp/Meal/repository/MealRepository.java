@@ -1,4 +1,4 @@
-package com.example.foodrecipeapp.Meal;
+package com.example.foodrecipeapp.Meal.repository;
 
 import com.example.foodrecipeapp.Meal.model.Meal;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,11 +15,9 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
     Long getMaxId();
     @Query("SELECT m FROM Meal m ORDER BY m.typeMeal ASC")
     List<Meal> sortByStatus();
-
     @Query(value = "select name from Meal order by type_meal ASC ",
     nativeQuery = true)
     List<String> findAllNameandSortByStatus();
-    List<Meal> findByIdGreaterThanAndIdLessThan(Long idmin,Long idmax);
-    List<Meal> findAllByPreperationTimeOrderByPreperationTimeAsc(Integer min);
+
 
 }

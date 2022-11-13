@@ -1,7 +1,7 @@
 package com.example.foodrecipeapp.Meal.controller;
 
 import com.example.foodrecipeapp.Exceptions.NotFoundMealException;
-import com.example.foodrecipeapp.Meal.Image.MealImageService;
+import com.example.foodrecipeapp.Image.MealImageService;
 import com.example.foodrecipeapp.Meal.service.MealService;
 import com.example.foodrecipeapp.Meal.dto.MealDto;
 import com.example.foodrecipeapp.Meal.dto.MealIngredientsDto;
@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -71,14 +73,9 @@ class MealController {
     }
     @GetMapping("/name")
     @ResponseBody
-    List<MealDto> findByName(@RequestParam(value = "name") Optional<String> name)
+    List<MealDto> findByName(@RequestParam(value = "name") String name)
     {
-        if(name.isPresent()){
-            return mealService.findByName(name.get());
-        }
-        else {
-            throw new NotFoundMealException();
-        }
+        return mealService.findByName(name);
     }
     @GetMapping("/name/image")
     //@ResponseBody

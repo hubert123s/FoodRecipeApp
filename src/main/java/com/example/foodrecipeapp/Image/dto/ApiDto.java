@@ -1,4 +1,4 @@
-package com.example.foodrecipeapp.Meal.Image;
+package com.example.foodrecipeapp.Image.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

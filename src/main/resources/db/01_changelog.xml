@@ -68,7 +68,7 @@
             <column name="name" type="VARCHAR(255)"/>
             <column name="email" type="VARCHAR(255)"/>
             <column name="type_newsletter" type="VARCHAR(255)"/>
+            <column name="created_date" type="DATETIME"/>
         </createTable>
     </changeSet>
-
 </databaseChangeLog>

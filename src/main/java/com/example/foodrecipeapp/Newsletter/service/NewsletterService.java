@@ -1,12 +1,14 @@
-package com.example.foodrecipeapp.Newsletter;
+package com.example.foodrecipeapp.Newsletter.service;
 
 import com.example.foodrecipeapp.Ingredients.model.Ingredients;
 import com.example.foodrecipeapp.Meal.model.Meal;
-import com.example.foodrecipeapp.Meal.MealRepository;
-import com.example.foodrecipeapp.Meal.MealService;
-import com.example.foodrecipeapp.Newsletter.Subscriber.SubscriberRepository;
+import com.example.foodrecipeapp.Meal.repository.MealRepository;
+import com.example.foodrecipeapp.Meal.service.MealService;
+import com.example.foodrecipeapp.Newsletter.ContentGenerator;
+import com.example.foodrecipeapp.Newsletter.SubscriberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -15,6 +17,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -34,9 +37,11 @@ public class NewsletterService {
 
     private final MealRepository mealRepository;
     private final MealService mealService;
+    private final ContentGenerator contentGenerator;
     private final SubscriberRepository subscriberRepository;
 
     private final static String PATHFILE ="ebook.txt";
+    private final static String SENDER ="szymanskidawid1205@gmail.com";
     public void sendMail(String text,String subject, List<String> email)
     {
         SimpleMailMessage msg = new SimpleMailMessage();
@@ -76,48 +81,36 @@ public class NewsletterService {
                 .emailFormat();
         return meal+ingredients;
     }
-    public void sendEbook( List<String> email)
+    public void sendEbook (List<String> email)
     {
-        createEbook();
+        String subject = "Ebook";
+        String text ="This is Ebook";
+        sendWithFile(email,subject,text,subject, contentGenerator.ebookGenerator());
+
+    }
+
+    public void sendWithFile(List<String> email, String subject, String text, String filename, byte[] file)
+    {
         MimeMessage message = javaMailSender.createMimeMessage();
 
         MimeMessageHelper helper = null;
         try {
             helper = new MimeMessageHelper(message, true);
-            helper.setFrom("szymanskidawid1205@gmail.com");
+            helper.setFrom(SENDER);
             helper.setTo(email.toArray(new String[0]));
-            helper.setSubject("Ebook");
-            helper.setText("This is Ebook");
-            FileSystemResource file
-                    = new FileSystemResource(new File(PATHFILE));
-            helper.addAttachment("Ebook", file);
+            helper.setSubject(subject);
+            helper.setText(text);
+
+            if(filename != null && file != null){
+                ByteArrayResource byteArrayResource = new ByteArrayResource(file);
+                helper.addAttachment(filename,byteArrayResource);
+            }
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
         javaMailSender.send(message);
     }
-    public void createEbook()
-    {
-        List<String> allNameMeals = mealRepository.findAllNameandSortByStatus();
-        List<String> text= mealRepository.sortByStatus().stream().map(Meal::emailFormat).toList();
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("ebook.txt", true))) {
-            bufferedWriter.write(createContent(allNameMeals));
-            bufferedWriter.write(createContent(text));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-    public String createContent(List<String> content)
-    {
-        StringBuilder stringBuilder = new StringBuilder();
-        for(String string :content)
-        {
-            stringBuilder.append(string);
-            stringBuilder.append("\n");
-        }
-        return stringBuilder.toString();
-    }
 
 }

@@ -21,6 +21,6 @@ VALUES
     (6,'melted butter',30,3),
     (7,'salt',5,3);
 INSERT INTO
-    subscriber(id,name,email,type_newsletter)
+    subscriber(id,name,email,type_newsletter,created_date)
 VALUES
-    (1,'hubert','hubert.antoniszyn98@gmail.com','daily');
+    (1,'hubert','hubert.antoniszyn98@gmail.com','daily','2022-10-30');

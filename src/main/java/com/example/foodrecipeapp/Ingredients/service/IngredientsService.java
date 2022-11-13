@@ -1,6 +1,8 @@
-package com.example.foodrecipeapp.Ingredients;
+package com.example.foodrecipeapp.Ingredients.service;
 
+import com.example.foodrecipeapp.Ingredients.repository.IngredientsRepository;
 import com.example.foodrecipeapp.Ingredients.dto.IngredientsDto;
+import com.example.foodrecipeapp.Ingredients.mapper.IngredientsDtoMapper;
 import com.example.foodrecipeapp.Ingredients.model.Ingredients;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +17,12 @@ public class IngredientsService {
         this.ingredientsRepository = ingredientsRepository;
         this.ingredientsDtoMapper = ingredientsDtoMapper;
     }
-    Optional<IngredientsDto> getIngredientsById(Long id)
+    public Optional<IngredientsDto> getIngredientsById(Long id)
     {
         return ingredientsRepository.findById(id)
                 .map(ingredientsDtoMapper::map);
     }
-    IngredientsDto saveIngredients( IngredientsDto ingredientsDto)
+    public IngredientsDto saveIngredients( IngredientsDto ingredientsDto)
     {
         Ingredients ingredientsToSave = ingredientsDtoMapper.toEntity(ingredientsDto);
         Ingredients savedIngredients = ingredientsRepository.save(ingredientsToSave);

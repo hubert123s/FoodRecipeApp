@@ -1,10 +1,11 @@
-package com.example.foodrecipeapp.Ingredients;
+package com.example.foodrecipeapp.Ingredients.mapper;
 
 
 import com.example.foodrecipeapp.Ingredients.dto.IngredientsDto;
 import com.example.foodrecipeapp.Ingredients.model.Ingredients;
-import com.example.foodrecipeapp.Meal.MealRepository;
+import com.example.foodrecipeapp.Meal.repository.MealRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.util.SerializationUtils;
 
 @Service
 public class IngredientsDtoMapper {
@@ -13,7 +14,7 @@ public class IngredientsDtoMapper {
     }
 
     private final MealRepository mealRepository;
-      IngredientsDto map(Ingredients ingredients)
+    public   IngredientsDto map(Ingredients ingredients)
     {
         IngredientsDto dto =new IngredientsDto();
         dto.setId(ingredients.getId());
@@ -22,7 +23,7 @@ public class IngredientsDtoMapper {
         dto.setMealId(ingredients.getMeal().getId());
         return  dto;
     }
-    Ingredients toEntity( IngredientsDto ingredientsDto)
+    public Ingredients toEntity( IngredientsDto ingredientsDto)
     {
         Ingredients ingredients = new Ingredients();
         ingredients.setId(ingredientsDto.getId());
