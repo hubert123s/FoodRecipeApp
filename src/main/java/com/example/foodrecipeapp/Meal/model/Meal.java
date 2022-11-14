@@ -23,7 +23,7 @@ public class Meal {
     private String name;
     @OneToMany(mappedBy = "meal",cascade =CascadeType.REMOVE)
     private List<Ingredients> ingredientsList;
-    //@Size(min=2,max=90)
+    @NonNull
     private  Integer preperationTime;
     @NotBlank
     private String description;

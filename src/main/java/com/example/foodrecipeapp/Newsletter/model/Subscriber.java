@@ -1,6 +1,5 @@
 package com.example.foodrecipeapp.Newsletter.model;
 
-import com.example.foodrecipeapp.Newsletter.TypeNewsletter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

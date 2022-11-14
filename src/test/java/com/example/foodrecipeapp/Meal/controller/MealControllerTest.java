@@ -1,7 +1,5 @@
 package com.example.foodrecipeapp.Meal.controller;
 
-import com.example.foodrecipeapp.Exceptions.NotFoundMealException;
-import com.example.foodrecipeapp.Image.MealImageService;
 import com.example.foodrecipeapp.Meal.dto.MealDto;
 import com.example.foodrecipeapp.Meal.mapper.MealDtoMapper;
 import com.example.foodrecipeapp.Meal.model.Meal;
@@ -9,8 +7,6 @@ import com.example.foodrecipeapp.Meal.model.TypeMeal;
 import com.example.foodrecipeapp.Meal.repository.MealRepository;
 import com.example.foodrecipeapp.Meal.service.MealService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.bytebuddy.implementation.bytecode.Throw;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

@@ -1,10 +1,9 @@
 package com.example.foodrecipeapp.Newsletter.service;
 
-import com.example.foodrecipeapp.Newsletter.SubscriberRepository;
+import com.example.foodrecipeapp.Newsletter.repository.SubscriberRepository;
 import com.example.foodrecipeapp.Newsletter.model.Subscriber;
-import com.example.foodrecipeapp.Newsletter.TypeNewsletter;
+import com.example.foodrecipeapp.Newsletter.model.TypeNewsletter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

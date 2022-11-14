@@ -1,4 +1,4 @@
-package com.example.foodrecipeapp.Newsletter;
+package com.example.foodrecipeapp.Newsletter.repository;
 
 import com.example.foodrecipeapp.Newsletter.model.Subscriber;
 import org.springframework.data.jpa.repository.JpaRepository;
