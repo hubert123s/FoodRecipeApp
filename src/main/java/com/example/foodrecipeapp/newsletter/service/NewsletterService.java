@@ -25,8 +25,8 @@ import java.util.concurrent.ThreadLocalRandom;
 @RequiredArgsConstructor
 @Service
 public class NewsletterService {
-    @Autowired
-    private JavaMailSender javaMailSender;
+
+    private final JavaMailSender javaMailSender;
 
     private final MealRepository mealRepository;
     private final MealService mealService;
