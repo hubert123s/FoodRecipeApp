@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: dev
   h2:
     console:
       enabled: true
@@ -17,9 +19,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: szymanskidawid1205@gmail.com
-    password: rbcfsblkotryizsr
-
+#    username: szymanskidawid1205@gmail.com
+#    password:
     properties:
       mail:
         smtp:
@@ -31,6 +32,7 @@ spring:
             required: true
         transport:
           protocole: smtp
+
 #logging:
 #  level:
 #    org:

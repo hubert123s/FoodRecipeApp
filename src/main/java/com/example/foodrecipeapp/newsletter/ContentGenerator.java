@@ -14,7 +14,7 @@ import java.util.List;
 public class ContentGenerator {
     private final MealRepository mealRepository;
     public String recipeToEmailTemplate(Long id) {
-        var ingredients = mealRepository
+        List<String> ingredients = mealRepository
                 .findById(id)
                 .stream()
                 .map(Meal::getIngredientsList)
@@ -26,13 +26,5 @@ public class ContentGenerator {
                 .orElseThrow()
                 .emailFormat();
         return meal + ingredients;
-    }
-    public String createContent(List<String> content) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String string : content) {
-            stringBuilder.append(string);
-            stringBuilder.append("\n");
-        }
-        return stringBuilder.toString();
     }
 }

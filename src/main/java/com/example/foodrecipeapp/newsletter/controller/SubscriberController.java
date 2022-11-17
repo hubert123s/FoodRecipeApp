@@ -1,6 +1,6 @@
 package com.example.foodrecipeapp.newsletter.controller;
 
-import com.example.foodrecipeapp.exceptions.DuplicatedEmailException;
+import com.example.foodrecipeapp.exception.DuplicatedEmailException;
 import com.example.foodrecipeapp.newsletter.model.Subscriber;
 import com.example.foodrecipeapp.newsletter.service.SubscriberService;
 import lombok.RequiredArgsConstructor;

@@ -1,15 +1,20 @@
 package com.example.foodrecipeapp.image;
 
 import com.example.foodrecipeapp.image.dto.ApiDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
+@RequiredArgsConstructor
 public class MealImageClient {
-    private RestTemplate restTemplate = new RestTemplate();
-    private static final String API_KEY = "29294717-ad04b5f26155f338cc1b5c55d";
+    @Qualifier("restTemplateConfiguration")
+    private final RestTemplate restTemplate;
+    @Value("${apiKey}")
+    private String API_KEY ;
     private static final String IMAGE_URL = "https://pixabay.com/api/";
-
     public ApiDto getImages(String name) {
         return restTemplate.getForObject(IMAGE_URL + "?key={API_KEY}&q={name}", ApiDto.class, API_KEY, name);
     }

@@ -1,6 +1,6 @@
 package com.example.foodrecipeapp.meal.controller;
 
-import com.example.foodrecipeapp.exceptions.DuplicatedMealException;
+import com.example.foodrecipeapp.exception.DuplicatedMealException;
 import com.example.foodrecipeapp.meal.dto.MealDto;
 import com.example.foodrecipeapp.meal.mapper.MealDtoMapper;
 import com.example.foodrecipeapp.meal.model.Meal;

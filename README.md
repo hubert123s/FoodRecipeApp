@@ -28,6 +28,7 @@
 ####  GET /meal/name - return meal by name
 ####  GET /meal/name/image - return photo of the meal from PixaBay API
 ####  GET /meal/ingredient - returns meals without the selected ingredient
+####  GET /meal/ingredients - returns meals without the selected ingredients
 
 ### SubscriberController
 ####  POST /subscriber/add - add new subscriber

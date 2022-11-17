@@ -20,7 +20,6 @@ import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
 @EnableScheduling
 @RequiredArgsConstructor
@@ -34,8 +33,8 @@ public class NewsletterService {
     private final ContentGenerator contentGenerator;
     private final SubscriberRepository subscriberRepository;
 
-    private final static String PATHFILE = "ebook.txt";
-    private final static String SENDER = "szymanskidawid1205@gmail.com";
+    private static final String PATHFILE = "ebook.txt";
+    private static final String SENDER = "szymanskidawid1205@gmail.com";
 
     public void sendMail(String text, String subject, List<String> email) {
         SimpleMailMessage msg = new SimpleMailMessage();
@@ -49,17 +48,18 @@ public class NewsletterService {
     @Async
     // @Scheduled(fixedRate = 5000)
     @Transactional
-    @Scheduled(cron = "0 49 12 * * ?")
+    @Scheduled(cron = "0 00 10 * * ?")
     public void dailyNewsletter() {
         Long max = mealRepository.getMaxId();
         Long randomnumber = ThreadLocalRandom.current().nextLong(1, max + 1);
         List<String> allEmail = subscriberRepository.findAll()
                 .stream()
                 .map(email -> email.getEmail())
-                .collect(Collectors.toList());
+                .toList();
         String subject = "daily newsletter";
         sendMail(contentGenerator.recipeToEmailTemplate(randomnumber), subject, allEmail);
     }
+
     public void sendWithFile(List<String> email, String subject, String text, String filename, byte[] file) {
         MimeMessage message = javaMailSender.createMimeMessage();
 

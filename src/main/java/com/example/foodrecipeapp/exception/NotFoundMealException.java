@@ -1,4 +1,4 @@
-package com.example.foodrecipeapp.exceptions;
+package com.example.foodrecipeapp.exception;
 
 public class NotFoundMealException extends Exception {
     public NotFoundMealException() {

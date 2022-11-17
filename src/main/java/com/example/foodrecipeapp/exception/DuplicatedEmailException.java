@@ -1,4 +1,4 @@
-package com.example.foodrecipeapp.exceptions;
+package com.example.foodrecipeapp.exception;
 
 public class DuplicatedEmailException extends Exception{
     public DuplicatedEmailException(String name) {
