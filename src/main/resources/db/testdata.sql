@@ -1,7 +1,7 @@
 INSERT INTO
     meal (id,name,preperation_time,description,type_meal)
 VALUES
-    (1,'toast',11,'Put in the toaster for about 2 minutes','breakfast');
+    (1,'toast',11,'Put in the toaster for about 2 minutes','BREAKFAST');
 INSERT INTO
     ingredients (id,name,amount,meal_id)
 VALUES
@@ -10,8 +10,8 @@ VALUES
 INSERT INTO
     meal (id,name,preperation_time,description,type_meal)
 VALUES
-    (2,'hotdog',5,'Put the sausage with cheese in the roll','breakfast'),
-    (3,'tortilla',25,'Description coming soon','dinner');
+    (2,'hotdog',5,'Put the sausage with cheese in the roll','BREAKFAST'),
+    (3,'tortilla',25,'Description coming soon','DINNER');
 INSERT INTO
     ingredients (id,name,amount,meal_id)
 VALUES
@@ -23,4 +23,4 @@ VALUES
 INSERT INTO
     subscriber(id,name,email,type_newsletter,created_date)
 VALUES
-    (1,'hubert','hubert.antoniszyn98@gmail.com','daily','2022-10-30');
+    (1,'hubert','hubert.antoniszyn98@gmail.com','DAILY','2022-10-30');

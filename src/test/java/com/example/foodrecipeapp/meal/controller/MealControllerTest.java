@@ -47,7 +47,7 @@ class MealControllerTest {
                 .name("pizza")
                 .preperationTime(10)
                 .description("coming soon")
-                .typeMeal(TypeMeal.dinner)
+                .typeMeal(TypeMeal.DINNER)
                 .build());
         MvcResult mvcResult = mockMvc.perform(get("/meal/" + meal.getId()))
                 .andDo(print())
@@ -68,7 +68,7 @@ class MealControllerTest {
                 .name("pizza")
                 .preperationTime(10)
                 .description("coming soon")
-                .typeMeal(TypeMeal.dinner)
+                .typeMeal(TypeMeal.DINNER)
                 .build();
 
         MvcResult mvcResult = mockMvc.perform(post("/meal")
@@ -97,7 +97,7 @@ class MealControllerTest {
                 .name("pizza")
                 .preperationTime(10)
                 .description("coming soon")
-                .typeMeal(TypeMeal.dinner)
+                .typeMeal(TypeMeal.DINNER)
                 .build());
 
         mockMvc.perform(delete("/meal/" + meal.getId()))
@@ -117,13 +117,13 @@ class MealControllerTest {
                 .name("pizza")
                 .preperationTime(10)
                 .description("coming soon")
-                .typeMeal(TypeMeal.dinner)
+                .typeMeal(TypeMeal.DINNER)
                 .build());
         MealDto mealDto = MealDto.builder()
                 .name("pizza")
                 .preperationTime(10)
                 .description("coming soon")
-                .typeMeal(TypeMeal.dinner)
+                .typeMeal(TypeMeal.DINNER)
                 .build();
 
         MvcResult mvcResult = mockMvc.perform(put("/meal/" + meal.getId())

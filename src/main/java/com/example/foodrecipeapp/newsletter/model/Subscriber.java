@@ -28,7 +28,7 @@ public class Subscriber {
     @Email
     private String email;
     @Enumerated(EnumType.STRING)
-    private TypeNewsletter typeNewsletter = TypeNewsletter.daily;
+    private TypeNewsletter typeNewsletter = TypeNewsletter.DAILY;
     @Column(name = "created_date", nullable = false, updatable = false)
     @CreatedDate
     private LocalDateTime createdDate;

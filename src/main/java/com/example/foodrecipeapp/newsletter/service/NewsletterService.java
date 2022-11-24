@@ -1,11 +1,10 @@
 package com.example.foodrecipeapp.newsletter.service;
 
 import com.example.foodrecipeapp.meal.repository.MealRepository;
-import com.example.foodrecipeapp.meal.service.MealService;
 import com.example.foodrecipeapp.newsletter.ContentGenerator;
+import com.example.foodrecipeapp.newsletter.model.TypeNewsletter;
 import com.example.foodrecipeapp.newsletter.repository.SubscriberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -27,13 +26,9 @@ import java.util.concurrent.ThreadLocalRandom;
 public class NewsletterService {
 
     private final JavaMailSender javaMailSender;
-
     private final MealRepository mealRepository;
-    private final MealService mealService;
     private final ContentGenerator contentGenerator;
     private final SubscriberRepository subscriberRepository;
-
-    private static final String PATHFILE = "ebook.txt";
     private static final String SENDER = "szymanskidawid1205@gmail.com";
 
     public void sendMail(String text, String subject, List<String> email) {
@@ -51,13 +46,13 @@ public class NewsletterService {
     @Scheduled(cron = "0 00 10 * * ?")
     public void dailyNewsletter() {
         Long max = mealRepository.getMaxId();
-        Long randomnumber = ThreadLocalRandom.current().nextLong(1, max + 1);
-        List<String> allEmail = subscriberRepository.findAll()
+        Long randomNumber = ThreadLocalRandom.current().nextLong(1, max + 1);
+        List<String> allEmail = subscriberRepository.findAllByTypeNewsletter(TypeNewsletter.DAILY)
                 .stream()
                 .map(email -> email.getEmail())
                 .toList();
         String subject = "daily newsletter";
-        sendMail(contentGenerator.recipeToEmailTemplate(randomnumber), subject, allEmail);
+        sendMail(contentGenerator.recipeToEmailTemplate(randomNumber), subject, allEmail);
     }
 
     public void sendWithFile(List<String> email, String subject, String text, String filename, byte[] file) {
