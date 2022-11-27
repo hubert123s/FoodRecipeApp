@@ -1,4 +1,4 @@
-package com.example.foodrecipeapp.ingredients.dto;
+package com.example.foodrecipeapp.ingredient.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class IngredientsDto implements Serializable {
+public class IngredientDto implements Serializable {
     private Long id;
     private String name;
     private Integer amount;

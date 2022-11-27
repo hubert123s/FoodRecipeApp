@@ -2,13 +2,14 @@ package com.example.foodrecipeapp.meal.service;
 
 import com.example.foodrecipeapp.exception.DuplicatedMealException;
 import com.example.foodrecipeapp.exception.NotFoundMealException;
-import com.example.foodrecipeapp.ingredients.dto.IngredientsDto;
-import com.example.foodrecipeapp.ingredients.mapper.IngredientsDtoMapper;
+import com.example.foodrecipeapp.ingredient.dto.IngredientDto;
+import com.example.foodrecipeapp.ingredient.mapper.IngredientDtoMapper;
 import com.example.foodrecipeapp.meal.dto.MealDto;
 import com.example.foodrecipeapp.meal.mapper.MealDtoMapper;
 import com.example.foodrecipeapp.meal.model.Meal;
 import com.example.foodrecipeapp.meal.repository.MealRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -21,36 +22,31 @@ import java.util.List;
 public class MealService {
     private final MealRepository mealRepository;
     private final MealDtoMapper mealDtoMapper;
-    private final IngredientsDtoMapper ingredientsDtoMapper;
+    private final IngredientDtoMapper ingredientDtoMapper;
 
     public MealDto getMealById(Long id) throws NotFoundMealException {
         return mealRepository.findById(id)
-                .map(MealDtoMapper::toDto)
+                .map(mealDtoMapper::toDto)
                 .orElseThrow(() -> new NotFoundMealException());
     }
 
     public List<MealDto> getAllMeals(int pageNumber, int pageSize, String sortBy, String sortDirection) {
-        if (sortDirection.equalsIgnoreCase("ascending")) {
-            return mealRepository.findAll
-                            (PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).ascending()))
-                    .stream()
-                    .map(MealDtoMapper::toDto)
-                    .toList();
-        } else {
-            return mealRepository.findAll
-                            (PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending()))
-                    .stream()
-                    .map(MealDtoMapper::toDto)
-                    .toList();
-        }
+
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+        PageRequest pageable = PageRequest.of(pageNumber, pageSize, sort);
+        Page<Meal> pagedMeals = mealRepository.findAll(pageable);
+        return pagedMeals.map(meal -> mealDtoMapper.toDto(meal))
+                .stream()
+                .toList();
     }
 
-    public List<IngredientsDto> getIngredientsByMealId(Long id) throws NotFoundMealException {
+    public List<IngredientDto> getIngredientsByMealId(Long id) throws NotFoundMealException {
         return mealRepository.findById(id)
                 .orElseThrow(() -> new NotFoundMealException())
-                .getIngredientsList()
+                .getIngredientList()
                 .stream()
-                .map(ingredientsDtoMapper::map)
+                .map(ingredientDtoMapper::map)
                 .toList();
     }
 
@@ -60,7 +56,7 @@ public class MealService {
         }
         Meal meal = mealDtoMapper.toEntity(mealDto);
         Meal savedMeal = mealRepository.save(meal);
-        return MealDtoMapper.toDto(savedMeal);
+        return mealDtoMapper.toDto(savedMeal);
     }
 
     public MealDto replaceMeal(Long mealId, MealDto mealDto) throws NotFoundMealException {
@@ -70,7 +66,7 @@ public class MealService {
         mealDto.setId(mealId);
         Meal mealToUpdate = mealDtoMapper.toEntity(mealDto);
         Meal updateEntity = mealRepository.save(mealToUpdate);
-        return MealDtoMapper.toDto(updateEntity);
+        return mealDtoMapper.toDto(updateEntity);
     }
 
     public void deleteMeal(Long id) throws NotFoundMealException {
@@ -81,29 +77,20 @@ public class MealService {
     }
 
     public MealDto findByName(String name) throws NotFoundMealException {
-        return mealRepository.findByName(name).map(MealDtoMapper::toDto)
+        return mealRepository.findByName(name).map(mealDtoMapper::toDto)
                 .orElseThrow(() -> new NotFoundMealException());
     }
 
-    public List<Meal> findWithOutThisIngredient(String ingredient) {
-        return mealRepository.findAll()
-                .stream()
-                .filter(meal -> meal.getIngredientsList()
-                        .stream().noneMatch(ingredients -> ingredients
-                                .getName()
-                                .equalsIgnoreCase(ingredient)))
-                .toList();
-    }
 
     public List<MealDto> findWithOutFewIngredients(String... ingredients) {
         return mealRepository.findAll()
                 .stream()
-                .filter(m -> m.getIngredientsList()
+                .filter(m -> m.getIngredientList()
                         .stream()
                         .noneMatch(ingredients1 -> Arrays.stream(ingredients)
                                 .toList()
                                 .contains(ingredients1.getName())))
-                .map(MealDtoMapper::toDto)
+                .map(mealDtoMapper::toDto)
                 .toList();
 
 

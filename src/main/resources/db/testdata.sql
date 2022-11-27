@@ -3,7 +3,7 @@ INSERT INTO
 VALUES
     (1,'toast',11,'Put in the toaster for about 2 minutes','BREAKFAST');
 INSERT INTO
-    ingredients (id,name,amount,meal_id)
+    ingredient (id,name,amount,meal_id)
 VALUES
     (1,'cheese',100,1),
     (2,'slice of bread',2,1);
@@ -13,7 +13,7 @@ VALUES
     (2,'hotdog',5,'Put the sausage with cheese in the roll','BREAKFAST'),
     (3,'tortilla',25,'Description coming soon','DINNER');
 INSERT INTO
-    ingredients (id,name,amount,meal_id)
+    ingredient (id,name,amount,meal_id)
 VALUES
     (3,'cheese',50,2),
     (4,'roll',1,2),

@@ -1,6 +1,6 @@
 package com.example.foodrecipeapp.meal.model;
 
-import com.example.foodrecipeapp.ingredients.model.Ingredients;
+import com.example.foodrecipeapp.ingredient.model.Ingredient;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,7 +23,7 @@ public class Meal {
     @NotBlank
     private String name;
     @OneToMany(mappedBy = "meal", cascade = CascadeType.REMOVE)
-    private List<Ingredients> ingredientsList;
+    private List<Ingredient> ingredientList;
     @NotNull
     private Integer preperationTime;
     @NotBlank

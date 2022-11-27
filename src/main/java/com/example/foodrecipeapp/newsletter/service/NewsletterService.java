@@ -45,14 +45,16 @@ public class NewsletterService {
     @Transactional
     @Scheduled(cron = "0 00 10 * * ?")
     public void dailyNewsletter() {
-        Long max = mealRepository.getMaxId();
-        Long randomNumber = ThreadLocalRandom.current().nextLong(1, max + 1);
         List<String> allEmail = subscriberRepository.findAllByTypeNewsletter(TypeNewsletter.DAILY)
                 .stream()
                 .map(email -> email.getEmail())
                 .toList();
         String subject = "daily newsletter";
-        sendMail(contentGenerator.recipeToEmailTemplate(randomNumber), subject, allEmail);
+        sendMail(contentGenerator.recipeToEmailTemplate(generateRandomNumber()), subject, allEmail);
+    }
+    private Long generateRandomNumber(){
+        Long max = mealRepository.getMaxId();
+        return ThreadLocalRandom.current().nextLong(1, max + 1);
     }
 
     public void sendWithFile(List<String> email, String subject, String text, String filename, byte[] file) {

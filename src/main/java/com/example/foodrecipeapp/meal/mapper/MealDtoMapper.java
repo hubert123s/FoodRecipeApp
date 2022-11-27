@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MealDtoMapper {
-    public static MealDto toDto(Meal meal) {
+    public MealDto toDto(Meal meal) {
         MealDto dto = new MealDto();
         dto.setId(meal.getId());
         dto.setName(meal.getName());

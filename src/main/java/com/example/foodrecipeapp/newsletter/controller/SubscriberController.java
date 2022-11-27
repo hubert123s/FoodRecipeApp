@@ -19,17 +19,12 @@ public class SubscriberController {
     private final SubscriberService subscriberService;
 
     @PostMapping("/add")
-    public ResponseEntity<Subscriber>addSubscriber(@RequestBody Subscriber subscriber) throws DuplicatedEmailException {
-        Subscriber savedSubscriber = subscriberService.addSubscriber(subscriber);
-        URI savedSubscriberUri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(savedSubscriber.getId())
-                .toUri();
-        return ResponseEntity.created(savedSubscriberUri).body(savedSubscriber);
+    Subscriber addSubscriber(@RequestBody Subscriber subscriber) throws DuplicatedEmailException {
+        return subscriberService.addSubscriber(subscriber);
     }
 
     @PostMapping("/your-dishes")
-    public void sendYourDishes(@RequestParam String author, @RequestPart MultipartFile file) throws IOException {
+    void sendYourDishes(@RequestParam String author, @RequestPart MultipartFile file) throws IOException {
         subscriberService.sendYourDishes(author, file);
     }
 

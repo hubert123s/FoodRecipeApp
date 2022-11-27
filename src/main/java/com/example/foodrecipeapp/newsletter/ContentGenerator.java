@@ -1,6 +1,6 @@
 package com.example.foodrecipeapp.newsletter;
 
-import com.example.foodrecipeapp.ingredients.model.Ingredients;
+import com.example.foodrecipeapp.ingredient.model.Ingredient;
 import com.example.foodrecipeapp.meal.model.Meal;
 import com.example.foodrecipeapp.meal.repository.MealRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +17,9 @@ public class ContentGenerator {
         List<String> ingredients = mealRepository
                 .findById(id)
                 .stream()
-                .map(Meal::getIngredientsList)
+                .map(Meal::getIngredientList)
                 .flatMap(Collection::stream)
-                .map(Ingredients::emailFormat)
+                .map(Ingredient::emailFormat)
                 .toList();
         String meal = mealRepository
                 .findById(id)

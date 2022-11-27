@@ -5,10 +5,10 @@ import com.example.foodrecipeapp.exception.DuplicatedMealException;
 import com.example.foodrecipeapp.exception.NotFoundMealException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice
+@ControllerAdvice
 public class RestExceptionHandler {
     @ExceptionHandler(NotFoundMealException.class)
     ResponseEntity<String> handleNotFoundMealException(NotFoundMealException exception) {

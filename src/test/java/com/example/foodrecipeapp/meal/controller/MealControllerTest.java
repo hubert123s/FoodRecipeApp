@@ -77,7 +77,7 @@ class MealControllerTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .characterEncoding("utf-8"))
                 .andDo(print())
-                .andExpect(status().is(201)).andReturn();
+                .andExpect(status().is(200)).andReturn();
 
         String contentAsString = mvcResult.getResponse().getContentAsString();
         MealDto responseMealDto = objectMapper.readValue(contentAsString, MealDto.class);
@@ -146,6 +146,17 @@ class MealControllerTest {
 
     @Test
     void shouldFindByName() throws Exception {
+        Meal meal = mealRepository.save(Meal.builder()
+                .name("pizza")
+                .preperationTime(10)
+                .description("coming soon")
+                .typeMeal(TypeMeal.DINNER)
+                .build());
+        mockMvc.perform(get("/meal/name")
+                        .queryParam("name",meal.getName()))
+                .andDo(print())
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$.description").value(meal.getDescription()));
         mockMvc.perform(get("/meal/name?name=toast"))
                 .andDo(print())
                 .andExpect(status().is(200));
@@ -154,4 +165,5 @@ class MealControllerTest {
                 .andExpect(status().is(404));
 
     }
+
 }

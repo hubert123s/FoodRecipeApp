@@ -1,4 +1,4 @@
-package com.example.foodrecipeapp.ingredients.model;
+package com.example.foodrecipeapp.ingredient.model;
 
 
 import com.example.foodrecipeapp.meal.model.Meal;
@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Ingredients {
+public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
