@@ -10,7 +10,7 @@ public class MealDtoMapper {
         MealDto dto = new MealDto();
         dto.setId(meal.getId());
         dto.setName(meal.getName());
-        dto.setPreperationTime(meal.getPreperationTime());
+        dto.setPreparationTime(meal.getPreparationTime());
         dto.setDescription(meal.getDescription());
         dto.setTypeMeal(meal.getTypeMeal());
         return dto;
@@ -20,7 +20,7 @@ public class MealDtoMapper {
         Meal meal = new Meal();
         meal.setId(mealDto.getId());
         meal.setName(mealDto.getName());
-        meal.setPreperationTime(mealDto.getPreperationTime());
+        meal.setPreparationTime(mealDto.getPreparationTime());
         meal.setDescription(mealDto.getDescription());
         meal.setTypeMeal(mealDto.getTypeMeal());
         return meal;

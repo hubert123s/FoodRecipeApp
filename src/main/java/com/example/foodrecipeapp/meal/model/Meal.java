@@ -23,9 +23,10 @@ public class Meal {
     @NotBlank
     private String name;
     @OneToMany(mappedBy = "meal", cascade = CascadeType.REMOVE)
+    //@OneToMany(mappedBy = "meal", cascade = CascadeType.PERSIST)
     private List<Ingredient> ingredientList;
     @NotNull
-    private Integer preperationTime;
+    private Integer preparationTime;
     @NotBlank
     private String description;
     @Enumerated(EnumType.STRING)
@@ -33,7 +34,7 @@ public class Meal {
 
     public String emailFormat() {
         return "name=" + name + "\n" +
-                "preperation time=" + preperationTime + "\n" +
+                "preperation time=" + preparationTime + "\n" +
                 "description=" + description + "\n" +
                 "type meal=" + typeMeal + "\n" +
                 "ingredients :";

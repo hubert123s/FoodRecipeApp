@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class MealDto implements Serializable {
     private Long id;
     private String name;
-    private Integer preperationTime;
+    private Integer preparationTime;
     private String description;
     private TypeMeal typeMeal;
 }

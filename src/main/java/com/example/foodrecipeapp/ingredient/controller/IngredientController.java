@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.*;
 public class IngredientController {
     private final IngredientService ingredientService;
     @GetMapping("/{id}")
-    IngredientDto getIngredientsById(@PathVariable Long id) throws NotFoundIngredientException {
+    IngredientDto getIngredientById(@PathVariable Long id) throws NotFoundIngredientException {
         return ingredientService.getIngredientsById(id);
     }
 
     @PostMapping
-    IngredientDto saveIngredients(@RequestBody IngredientDto ingredientDto) {
+    IngredientDto saveIngredient(@RequestBody IngredientDto ingredientDto) {
         return ingredientService.saveIngredients(ingredientDto);
     }
 
     @DeleteMapping("/{id}")
-    void deleteIngredients(@PathVariable Long id) {
+    void deleteIngredient(@PathVariable Long id) {
         ingredientService.deleteIngredients(id);
     }
 }

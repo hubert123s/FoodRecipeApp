@@ -7,7 +7,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 @Builder
 @Getter
@@ -21,8 +20,9 @@ public class Ingredient {
     private Long id;
     @NotBlank
     private String name;
-    @Size(min = 1, max = 1000)
+    @NonNull
     private Integer amount;
+    //@ManyToOne(optional = false)
     @ManyToOne(optional = false)
     @JsonIgnore
     private Meal meal;
