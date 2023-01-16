@@ -1,7 +1,6 @@
 package com.example.foodrecipeapp.meal.controller;
 
 import com.example.foodrecipeapp.exception.DuplicatedMealException;
-import com.example.foodrecipeapp.ingredient.dto.IngredientDto;
 import com.example.foodrecipeapp.ingredient.mapper.IngredientDtoMapper;
 import com.example.foodrecipeapp.ingredient.model.Ingredient;
 import com.example.foodrecipeapp.ingredient.repository.IngredientRepository;
@@ -178,5 +177,50 @@ class MealControllerTest {
                 .andExpect(status().is(404));
     }
 
+    @Test
+    void shouldFindWithoutFewIngredients() throws Exception {
+        Ingredient ingredient = Ingredient.builder()
+                .name("egg")
+                .amount(2)
+                .build();
+        Meal meal = Meal.builder()
+                .name("Scrambled eggs")
+                .preparationTime(10)
+                .description("coming soon")
+                .typeMeal(TypeMeal.BREAKFAST)
+                .ingredientList(List.of(ingredient))
+                .build();
+
+        mealRepository.save(meal);
+
+        mockMvc.perform(get("/meal/ingredients")
+                        .queryParam("without", "salt,cheese"))
+                .andDo(print())
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$.[0].name").value(meal.getName()));
+
+    }
+
+    @Test
+    void shouldGetIngredientsByMealId() throws Exception {
+        Ingredient ingredient = Ingredient.builder()
+                .name("egg")
+                .amount(2)
+                .meal(new Meal())
+                .build();
+        Meal mealDto = Meal.builder()
+                .name("Scrambled eggs")
+                .preparationTime(10)
+                .description("coming soon")
+                .typeMeal(TypeMeal.BREAKFAST)
+                .ingredientList(List.of(ingredient))
+                .build();
+        Meal meal = mealRepository.save(mealDto);
+
+        mockMvc.perform(get("/meal/" + meal.getId() + "/ingredients"))
+                .andDo(print())
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$.[0].name").value(ingredient.getName()));
+    }
 
 }
