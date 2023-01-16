@@ -31,7 +31,6 @@ public class MealService {
     }
 
     public List<MealDto> getAllMeals(int pageNumber, int pageSize, String sortBy, String sortDirection) {
-
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
         PageRequest pageable = PageRequest.of(pageNumber, pageSize, sort);
@@ -80,7 +79,6 @@ public class MealService {
         return mealRepository.findByName(name).map(mealDtoMapper::toDto)
                 .orElseThrow(() -> new NotFoundMealException());
     }
-
 
     public List<MealDto> findWithOutFewIngredients(String... ingredients) {
         return mealRepository.findAll()
