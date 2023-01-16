@@ -5,6 +5,8 @@ import com.example.foodrecipeapp.exception.NotFoundMealException;
 import com.example.foodrecipeapp.image.service.MealImageService;
 import com.example.foodrecipeapp.ingredient.dto.IngredientDto;
 import com.example.foodrecipeapp.meal.dto.MealDto;
+import com.example.foodrecipeapp.meal.model.Meal;
+import com.example.foodrecipeapp.meal.repository.MealRepository;
 import com.example.foodrecipeapp.meal.service.MealService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +20,10 @@ import java.util.Optional;
 class MealController {
     private final MealService mealService;
     private final MealImageService mealImageService;
-
     @GetMapping
     List<MealDto> getAllMeals(@RequestParam(defaultValue = "0", required = false) int pageNumber,
                               @RequestParam(defaultValue = "2", required = false) int pageSize,
-                              @RequestParam(defaultValue = "preperationTime", required = false) String sortBy,
+                              @RequestParam(defaultValue = "preparationTime", required = false) String sortBy,
                               @RequestParam(defaultValue = "ASC", required = false) String sortDirection) {
         return mealService.getAllMeals(pageNumber, pageSize, sortBy, sortDirection);
     }

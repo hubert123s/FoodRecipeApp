@@ -1,6 +1,10 @@
 package com.example.foodrecipeapp.meal.controller;
 
 import com.example.foodrecipeapp.exception.DuplicatedMealException;
+import com.example.foodrecipeapp.ingredient.dto.IngredientDto;
+import com.example.foodrecipeapp.ingredient.mapper.IngredientDtoMapper;
+import com.example.foodrecipeapp.ingredient.model.Ingredient;
+import com.example.foodrecipeapp.ingredient.repository.IngredientRepository;
 import com.example.foodrecipeapp.meal.dto.MealDto;
 import com.example.foodrecipeapp.meal.mapper.MealDtoMapper;
 import com.example.foodrecipeapp.meal.model.Meal;
@@ -18,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -31,11 +36,15 @@ class MealControllerTest {
     @Autowired
     MealRepository mealRepository;
     @Autowired
+    IngredientRepository ingredientRepository;
+    @Autowired
     MealService mealService;
     @Autowired
     MockMvc mockMvc;
     @Autowired
     MealDtoMapper mealDtoMapper;
+    @Autowired
+    IngredientDtoMapper ingredientDtoMapper;
     @Autowired
     ObjectMapper objectMapper;
 
@@ -45,7 +54,7 @@ class MealControllerTest {
 
         Meal meal = mealRepository.save(Meal.builder()
                 .name("pizza")
-                .preperationTime(10)
+                .preparationTime(10)
                 .description("coming soon")
                 .typeMeal(TypeMeal.DINNER)
                 .build());
@@ -59,14 +68,15 @@ class MealControllerTest {
         Assertions.assertEquals(meal.getName(), responseMeal.getName());
         Assertions.assertEquals(meal.getDescription(), responseMeal.getDescription());
         Assertions.assertEquals(meal.getTypeMeal(), responseMeal.getTypeMeal());
-        Assertions.assertEquals(meal.getPreperationTime(), responseMeal.getPreperationTime());
+        Assertions.assertEquals(meal.getPreparationTime(), responseMeal.getPreparationTime());
     }
+
     @Test
     void shouldPostMeal() throws Exception {
 
         MealDto mealDto = MealDto.builder()
                 .name("pizza")
-                .preperationTime(10)
+                .preparationTime(10)
                 .description("coming soon")
                 .typeMeal(TypeMeal.DINNER)
                 .build();
@@ -84,8 +94,8 @@ class MealControllerTest {
         Assertions.assertEquals(mealDto.getName(), responseMealDto.getName());
         Assertions.assertEquals(mealDto.getDescription(), responseMealDto.getDescription());
         Assertions.assertEquals(mealDto.getTypeMeal(), responseMealDto.getTypeMeal());
-        Assertions.assertEquals(mealDto.getPreperationTime(), responseMealDto.getPreperationTime());
-        Assertions.assertThrows(DuplicatedMealException.class,()->mealService.saveMeal(mealDto));
+        Assertions.assertEquals(mealDto.getPreparationTime(), responseMealDto.getPreparationTime());
+        Assertions.assertThrows(DuplicatedMealException.class, () -> mealService.saveMeal(mealDto));
 
 
     }
@@ -95,7 +105,7 @@ class MealControllerTest {
 
         Meal meal = mealRepository.save(Meal.builder()
                 .name("pizza")
-                .preperationTime(10)
+                .preparationTime(10)
                 .description("coming soon")
                 .typeMeal(TypeMeal.DINNER)
                 .build());
@@ -115,13 +125,13 @@ class MealControllerTest {
     void shouldReplaceMeal() throws Exception {
         Meal meal = mealRepository.save(Meal.builder()
                 .name("pizza")
-                .preperationTime(10)
+                .preparationTime(10)
                 .description("coming soon")
                 .typeMeal(TypeMeal.DINNER)
                 .build());
         MealDto mealDto = MealDto.builder()
                 .name("pizza")
-                .preperationTime(10)
+                .preparationTime(10)
                 .description("coming soon")
                 .typeMeal(TypeMeal.DINNER)
                 .build();
@@ -140,7 +150,7 @@ class MealControllerTest {
         Assertions.assertEquals(meal.getName(), responseMeal.getName());
         Assertions.assertEquals(meal.getDescription(), responseMeal.getDescription());
         Assertions.assertEquals(meal.getTypeMeal(), responseMeal.getTypeMeal());
-        Assertions.assertEquals(meal.getPreperationTime(), responseMeal.getPreperationTime());
+        Assertions.assertEquals(meal.getPreparationTime(), responseMeal.getPreparationTime());
 
     }
 
@@ -148,22 +158,25 @@ class MealControllerTest {
     void shouldFindByName() throws Exception {
         Meal meal = mealRepository.save(Meal.builder()
                 .name("pizza")
-                .preperationTime(10)
+                .preparationTime(10)
                 .description("coming soon")
                 .typeMeal(TypeMeal.DINNER)
                 .build());
         mockMvc.perform(get("/meal/name")
-                        .queryParam("name",meal.getName()))
+                        .queryParam("name", meal.getName()))
                 .andDo(print())
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.description").value(meal.getDescription()));
-        mockMvc.perform(get("/meal/name?name=toast"))
-                .andDo(print())
-                .andExpect(status().is(200));
-        mockMvc.perform(get("/meal/name?name=skfcns"))
-                .andDo(print())
-                .andExpect(status().is(404));
 
     }
+
+    @Test
+    void shouldNotFindByName() throws Exception {
+        mockMvc.perform(get("/meal/name")
+                        .queryParam("name", "dfdvs"))
+                .andDo(print())
+                .andExpect(status().is(404));
+    }
+
 
 }

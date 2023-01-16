@@ -10,7 +10,6 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
 
 
     Optional<Meal> findByName(String name);
-
     @Query("SELECT coalesce(max(m.id), 0) FROM Meal m")
     Long getMaxId();
     boolean existsByName(String name);
