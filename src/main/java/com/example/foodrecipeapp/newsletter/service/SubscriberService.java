@@ -15,16 +15,16 @@ import java.util.List;
 public class SubscriberService {
     private final SubscriberRepository subscriberRepository;
     private final NewsletterService newsletterService;
+    private static final String SUBJECT ="Subscription confirmation";
+    private static final String TEXT = "You have been successfully added to the subscriber base";
 
     public Subscriber addSubscriber(Subscriber subscriber) throws DuplicatedEmailException {
-        String subject = "Subscription confirmation";
-        String text = "You have been successfully added to the subscriber base";
         if (subscriberRepository.existsByName(subscriber.getName()))
         {
             throw new DuplicatedEmailException(subscriber.getName());
         }
          subscriber = subscriberRepository.save(subscriber);
-        newsletterService.sendMail(text, subject, List.of(subscriber.getEmail()));
+        newsletterService.sendMail(TEXT, SUBJECT, List.of(subscriber.getEmail()));
         return subscriber;
     }
 

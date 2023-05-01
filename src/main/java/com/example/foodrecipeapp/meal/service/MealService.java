@@ -27,7 +27,7 @@ public class MealService {
     public MealDto getMealById(Long id) throws NotFoundMealException {
         return mealRepository.findById(id)
                 .map(mealDtoMapper::toDto)
-                .orElseThrow(() -> new NotFoundMealException());
+                .orElseThrow(NotFoundMealException::new);
     }
 
     public List<MealDto> getAllMeals(int pageNumber, int pageSize, String sortBy, String sortDirection) {
@@ -35,14 +35,14 @@ public class MealService {
                 : Sort.by(sortBy).descending();
         PageRequest pageable = PageRequest.of(pageNumber, pageSize, sort);
         Page<Meal> pagedMeals = mealRepository.findAll(pageable);
-        return pagedMeals.map(meal -> mealDtoMapper.toDto(meal))
+        return pagedMeals.map(mealDtoMapper::toDto)
                 .stream()
                 .toList();
     }
 
     public List<IngredientDto> getIngredientsByMealId(Long id) throws NotFoundMealException {
         return mealRepository.findById(id)
-                .orElseThrow(() -> new NotFoundMealException())
+                .orElseThrow(NotFoundMealException::new)
                 .getIngredientList()
                 .stream()
                 .map(ingredientDtoMapper::map)
@@ -77,21 +77,13 @@ public class MealService {
 
     public MealDto findByName(String name) throws NotFoundMealException {
         return mealRepository.findByName(name).map(mealDtoMapper::toDto)
-                .orElseThrow(() -> new NotFoundMealException());
+                .orElseThrow(NotFoundMealException::new);
     }
 
     public List<MealDto> findWithOutFewIngredients(String... ingredients) {
-        return mealRepository.findAll()
+        return mealRepository.findByIngredientsNotIn(Arrays.asList(ingredients))
                 .stream()
-                .filter(m -> m.getIngredientList()
-                        .stream()
-                        .noneMatch(ingredients1 -> Arrays.stream(ingredients)
-                                .toList()
-                                .contains(ingredients1.getName())))
                 .map(mealDtoMapper::toDto)
                 .toList();
-
-
     }
-
 }

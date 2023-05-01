@@ -44,7 +44,7 @@ class IngredientControllerTest {
         ingredient.setAmount(2);
         ingredient.setMeal(new Meal());
         ingredientRepository.save(ingredient);
-        MvcResult mvcResult = mockMvc.perform(get("/ingredients/" + ingredient.getId()))
+        MvcResult mvcResult = mockMvc.perform(get("/ingredient/" + ingredient.getId()))
                 .andDo(print())
                 .andExpect(status().is(200))
                 .andReturn();
@@ -64,7 +64,7 @@ class IngredientControllerTest {
         ingredientDto.setAmount(2);
         ingredientDto.setMealId(1L);
 
-        MvcResult mvcResult = mockMvc.perform(post("/ingredients")
+        MvcResult mvcResult = mockMvc.perform(post("/ingredient")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(ingredientDto))
                         .accept(MediaType.APPLICATION_JSON)
@@ -85,7 +85,7 @@ class IngredientControllerTest {
         ingredient.setId(1L);
         ingredient.setName("ingredients");
         ingredient.setAmount(2);
-        mockMvc.perform(delete("/ingredients/" + ingredient.getId()))
+        mockMvc.perform(delete("/ingredient/" + ingredient.getId()))
                 .andDo(print())
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.id").doesNotExist())

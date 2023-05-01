@@ -30,6 +30,7 @@ public class NewsletterService {
     private final ContentGenerator contentGenerator;
     private final SubscriberRepository subscriberRepository;
     private static final String SENDER = "szymanskidawid1205@gmail.com";
+    private static final String SUBJECT = "daily newsletter";
 
     public void sendMail(String text, String subject, List<String> email) {
         SimpleMailMessage msg = new SimpleMailMessage();
@@ -37,7 +38,6 @@ public class NewsletterService {
         msg.setSubject(subject);
         msg.setText(text);
         javaMailSender.send(msg);
-
     }
 
     @Async
@@ -45,12 +45,8 @@ public class NewsletterService {
     @Transactional
     @Scheduled(cron = "0 00 10 * * ?")
     public void dailyNewsletter() {
-        List<String> allEmail = subscriberRepository.findAllByTypeNewsletter(TypeNewsletter.DAILY)
-                .stream()
-                .map(email -> email.getEmail())
-                .toList();
-        String subject = "daily newsletter";
-        sendMail(contentGenerator.recipeToEmailTemplate(generateRandomNumber()), subject, allEmail);
+        List<String> allEmail= subscriberRepository.findEmailsByTypeNewsletter(TypeNewsletter.DAILY);
+        sendMail(contentGenerator.recipeToEmailTemplate(generateRandomNumber()),SUBJECT, allEmail);
     }
     private Long generateRandomNumber(){
         Long max = mealRepository.getMaxId();
@@ -72,12 +68,9 @@ public class NewsletterService {
                 ByteArrayResource byteArrayResource = new ByteArrayResource(file);
                 helper.addAttachment(filename, byteArrayResource);
             }
-
         } catch (MessagingException e) {
             e.printStackTrace();
         }
         javaMailSender.send(message);
     }
-
-
 }

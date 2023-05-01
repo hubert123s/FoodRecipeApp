@@ -18,5 +18,4 @@ public class MealImageClient {
     public ApiDto getImages(String name) {
         return restTemplate.getForObject(IMAGE_URL + "?key={API_KEY}&q={name}", ApiDto.class, API_KEY, name);
     }
-
 }

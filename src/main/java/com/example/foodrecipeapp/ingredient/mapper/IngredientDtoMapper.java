@@ -7,12 +7,13 @@ import com.example.foodrecipeapp.meal.repository.MealRepository;
 import org.springframework.stereotype.Service;
 
 @Service
+
 public class IngredientDtoMapper {
+    private final MealRepository mealRepository;
+
     public IngredientDtoMapper(MealRepository mealRepository) {
         this.mealRepository = mealRepository;
     }
-
-    private final MealRepository mealRepository;
 
     public IngredientDto map(Ingredient ingredient) {
         IngredientDto dto = new IngredientDto();
