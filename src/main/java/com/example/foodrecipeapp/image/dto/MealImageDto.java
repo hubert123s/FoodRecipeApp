@@ -17,4 +17,6 @@ public class MealImageDto {
     private String previewURL;
     private Double previewWidth;
     private String webformatURL;
+    private Long views;
+    private Long dowloads;
 }

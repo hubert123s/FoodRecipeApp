@@ -29,7 +29,11 @@ public class MealService {
                 .map(mealDtoMapper::toDto)
                 .orElseThrow(NotFoundMealException::new);
     }
-
+    public int amountMeals(){
+        return mealRepository
+                .findAll()
+                .size();
+    }
     public List<MealDto> getAllMeals(int pageNumber, int pageSize, String sortBy, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();

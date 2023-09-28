@@ -11,6 +11,7 @@ import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/subscriber")
 public class SubscriberController {
     private final SubscriberService subscriberService;

@@ -222,5 +222,83 @@ class MealControllerTest {
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.[0].name").value(ingredient.getName()));
     }
+//    @Test
+//    void shouldGetIngredientsById() throws Exception {
+////        Ingredient ingredient = ingredientRepository.save(Ingredient.builder()
+////                .name("egg")
+////                .amount(Integer.valueOf(2))
+////                .build());
+//
+//
+//        Meal meal = mealRepository.save(Meal.builder()
+//                .name("Scrambled eggs")
+//                .preparationTime(10)
+//                .description("coming soon")
+//                .typeMeal(TypeMeal.BREAKFAST)
+//                //.ingredientList(List.of(ingredient))
+//                .build());
+//        System.out.println("to jest meal.getid(" + meal.getId());
+//        Ingredient ingredient = ingredientRepository.save(ingredientDtoMapper.toEntity(IngredientDto.builder()
+//                .name("egg")
+//                .amount(Integer.valueOf(2))
+//                .mealId(meal.getId())
+//                .build()));
+//        System.out.println(mealRepository.findAll());
+//        List<Meal> listameali= mealRepository.findAll();
+//        Meal meal2 = mealRepository.findById(meal.getId()).get();
+//        mockMvc.perform(get("/meal/" + meal.getId() + "/ingredients"))
+//                .andDo(print())
+//                .andExpect(status().is(200))
+//                .andExpect(jsonPath("$.[0].name").value(ingredient.getName()));
+//    }
+//
+//    //NOOOOOOOOOOOOOOOOOOOOOWE
+//    @Test
+//    void shouldGetIngredientsByMealId() throws Exception {
+////        Ingredient ingredient = ingredientRepository.save(Ingredient.builder()
+////                .name("egg")
+////                .amount(Integer.valueOf(2))
+////                .build());
+//
+//
+//        MealDto mealDto = MealDto.builder()
+//                .name("Scrambled eggs")
+//                .preparationTime(10)
+//                .description("coming soon")
+//                .typeMeal(TypeMeal.BREAKFAST)
+//                //.ingredientList(List.of(ingredient))
+//                .build();
+//        MvcResult mvcResult = mockMvc.perform(post("/meal")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(objectMapper.writeValueAsBytes(mealDto))
+//                        .accept(MediaType.APPLICATION_JSON)
+//                        .characterEncoding("utf-8"))
+//                .andDo(print())
+//                .andExpect(status().is(200)).andReturn();
+//
+//
+//        Long mealId=4L;
+//        System.out.println("to jest meal.getid(" + mealDto.getId());
+//        Ingredient ingredientDto = ingredientRepository.save(ingredientDtoMapper.toEntity(IngredientDto.builder()
+//                .name("egg")
+//                .amount(Integer.valueOf(2))
+//                .mealId(mealId)
+//                .build()));
+//         mockMvc.perform(post("/ingredient")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(objectMapper.writeValueAsBytes(ingredientDto))
+//                        .accept(MediaType.APPLICATION_JSON)
+//                        .characterEncoding("utf-8"))
+//                .andDo(print())
+//                .andExpect(status().is(200))
+//                .andReturn();
+//        System.out.println(mealRepository.findAll());
+//        List<Meal> listameali= mealRepository.findAll();
+//        Meal meal2 = mealRepository.findById(mealId).get();
+//        mockMvc.perform(get("/meal/" + mealDto.getId() + "/ingredients"))
+//                .andDo(print())
+//                .andExpect(status().is(200))
+//                .andExpect(jsonPath("$.[0].name").value(ingredientDto.getName()));
+//    }
 
 }

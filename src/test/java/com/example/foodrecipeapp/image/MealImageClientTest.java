@@ -1,5 +1,6 @@
 package com.example.foodrecipeapp.image;
 
+import com.example.foodrecipeapp.image.client.MealImageClient;
 import com.example.foodrecipeapp.image.dto.ApiDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

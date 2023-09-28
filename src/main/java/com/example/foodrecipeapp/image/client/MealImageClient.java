@@ -1,4 +1,4 @@
-package com.example.foodrecipeapp.image;
+package com.example.foodrecipeapp.image.client;
 
 import com.example.foodrecipeapp.image.dto.ApiDto;
 import lombok.RequiredArgsConstructor;

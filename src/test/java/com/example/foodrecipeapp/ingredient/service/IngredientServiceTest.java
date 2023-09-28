@@ -54,7 +54,6 @@ class IngredientServiceTest {
 
         verify(ingredientRepository, times(1)).deleteById(anyLong());
         verifyNoMoreInteractions(ingredientRepository);
-
     }
 
     @Test

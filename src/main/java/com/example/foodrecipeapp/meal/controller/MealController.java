@@ -16,6 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/meal")
 class MealController {
     private final MealService mealService;
@@ -27,7 +28,10 @@ class MealController {
                               @RequestParam(defaultValue = "ASC", required = false) String sortDirection) {
         return mealService.getAllMeals(pageNumber, pageSize, sortBy, sortDirection);
     }
-
+    @GetMapping("/size")
+    int getMealsSize() {
+        return mealService.amountMeals();
+    }
     @GetMapping("/{id}")
     MealDto getMealById(@PathVariable Long id) throws NotFoundMealException {
         return mealService.getMealById(id);
